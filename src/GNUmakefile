@@ -92,9 +92,9 @@ endif
 
 ifndef NATIVE_C11
   CPPFLAGS += -DUSE_LIBC11
-  LDFLAGS += ../subprojects/c11/libc11.a
+  LDFLAGS += $(wildcard ../subprojects/c11/*/*.o)
 endif
-LDFLAGS += ../subprojects/time/libtime.a
+LDFLAGS += $(wildcard ../subprojects/time/*/*.o)
 
 LDFLAGS += -lm
 ifeq ($(uname_S),Linux)

@@ -43,7 +43,9 @@
 
 #include "nbody_util.h"
 
+#pragma omp declare target
 #include "bodybodyInteraction.cuh"
+#pragma omp end declare target
 #include "nbody_CPU_SOA.h"
 
 DEFINE_SOA(ComputeGravitation_SOA)
@@ -60,6 +62,7 @@ DEFINE_SOA(ComputeGravitation_SOA)
     ASSUME(N >= 1024);
     ASSUME(N % 1024 == 0);
 
+    #pragma omp target
     #pragma omp parallel for schedule(guided, 16)
     #pragma vector aligned
     #pragma ivdep
